@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chashni • A Universe Built For You 💖</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chashni: {
+                            bg: '#0a0314',
+                            card: '#130726',
+                            rose: '#ff2e63',
+                            pink: '#ff7597',
+                            lavender: '#c084fc',
+                            neon: '#ff0055',
+                            accent: '#38ef7d'
+                        }
+                    },
+                    fontFamily: {
+                        alex: ['"Alex Brush"', 'cursive'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        tech: ['"Space Grotesk"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0314;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* Ambient Glowing Background Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            animation: pulseOrb 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseOrb {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.25; }
+            50% { transform: scale(1.2) translate(20px, -30px); opacity: 0.45; }
+            100% { transform: scale(0.9) translate(-20px, 20px); opacity: 0.3; }
+        }
+
+        /* Glassmorphism Luxury Panels */
+        .glass-panel {
+            background: rgba(19, 7, 38, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 117, 151, 0.15);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7);
+        }
+
+        .glass-panel-glow {
+            transition: all 0.4s ease;
+        }
+
+        .glass-panel-glow:hover {
+            border-color: rgba(255, 46, 99, 0.5);
+            box-shadow: 0 0 35px rgba(255, 46, 99, 0.25);
+            transform: translateY(-4px);
+        }
+
+        /* Custom Holographic / Glowing Text */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(255, 46, 99, 0.6), 0 0 40px rgba(192, 132, 252, 0.4);
+        }
+
+        /* Glowing Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0314;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff2e63;
+            border-radius: 3px;
+        }
+
+        /* Envelope Wax Seal Styles */
+        .envelope-wrapper {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Game Canvas Container */
+        #gameCanvas {
+            touch-action: none;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-slate-100 selection:bg-chashni-rose selection:text-white">
+
+    <!-- Ambient Floating Orbs -->
+    <div class="orb w-96 h-96 bg-chashni-rose top-10 left-10"></div>
+    <div class="orb w-[30rem] h-[30rem] bg-chashni-lavender top-1/3 right-5"></div>
+    <div class="orb w-96 h-96 bg-chashni-neon bottom-10 left-1/4"></div>
+
+    <!-- Canvas for Interactive Star Trail -->
+    <canvas id="trailCanvas" class="fixed inset-0 pointer-events-none z-10"></canvas>
+
+    <!-- Main Dynamic Layout Container -->
+    <div class="relative z-20 flex flex-col min-h-screen">
+
+        <!-- ================= HERO EDITORIAL SECTION ================= -->
+        <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center relative py-12">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-chashni-pink text-xs uppercase tracking-widest font-tech mb-8 border border-chashni-rose/30">
+                <span class="w-2 h-2 rounded-full bg-chashni-rose animate-ping"></span>
+                Bespoke Digital Experience • For Chashni
+            </div>
+
+            <h1 class="font-cinzel text-5xl sm:text-7xl lg:text-9xl font-bold tracking-tight mb-4 text-white uppercase glow-text">
+                CHASHNI<span class="text-chashni-rose">.</span>
+            </h1>
+
+            <p class="font-alex text-4xl sm:text-6xl text-chashni-pink mb-8">
+                The sweetest piece of my entire world
+            </p>
+
+            <p class="max-w-xl text-sm sm:text-base text-slate-300/80 font-light leading-relaxed mb-10">
+                A handcrafted space designed strictly for one person. Welcome to your private universe of memories, playful mischief, and unshakeable affection.
+            </p>
+
+            <!-- Unlock Universe Button -->
+            <button id="enterVaultBtn" onclick="enterUniverse()" class="group relative px-9 py-4 bg-gradient-to-r from-chashni-rose to-chashni-lavender rounded-full font-tech font-semibold text-sm tracking-wider uppercase text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer">
+                <span class="relative z-10 flex items-center gap-3">
+                    <span>Unlock Universe</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </span>
+                <div class="absolute inset-0 rounded-full bg-white/20 blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </button>
+
+            <!-- Scroll Indicator -->
+            <div id="scrollPrompt" class="hidden absolute bottom-8 flex flex-col items-center gap-2 text-chashni-pink/60 animate-bounce">
+                <span class="text-[10px] uppercase font-tech tracking-widest">Scroll to explore</span>
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+        </section>
+
+
+        <!-- ================= MAIN UNLOCKED EXPERIENCE ================= -->
+        <main id="mainApp" class="hidden flex-col items-center space-y-32 pb-32 px-4 w-full max-w-6xl mx-auto">
+
+            <!-- 1. DYNAMIC AUDIO PLAYER WIDGET -->
+            <section class="w-full max-w-2xl">
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden border border-chashni-rose/20">
+                    <div class="flex flex-col sm:flex-row items-center gap-6">
+                        
+                        <!-- Vinyl Disk Graphic -->
+                        <div class="relative w-28 h-28 flex-shrink-0">
+                            <div id="vinylDisk" class="w-full h-full rounded-full bg-slate-950 p-2 border-2 border-chashni-rose/40 shadow-2xl flex items-center justify-center transition-all">
+                                <div class="w-10 h-10 rounded-full bg-chashni-rose/20 border border-chashni-pink flex items-center justify-center">
+                                    <i class="fa-solid fa-music text-chashni-pink text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Audio Info & Track Loader -->
+                        <div class="flex-1 text-center sm:text-left space-y-2">
+                            <div class="text-[10px] uppercase tracking-widest font-tech text-chashni-lavender">Soundtrack of Us</div>
+                            <h3 id="currentSongTitle" class="font-cinzel text-xl text-white font-semibold">Chashni's Theme (Acoustic)</h3>
+                            <p id="currentSongSub" class="text-xs text-slate-400">Streamed from your custom heart</p>
+
+                            <!-- Audio Controls -->
+                            <div class="flex items-center justify-center sm:justify-start gap-3 pt-2">
+                                <button onclick="toggleAudio()" id="playPauseBtn" class="w-10 h-10 rounded-full bg-chashni-rose text-white flex items-center justify-center shadow-lg hover:bg-chashni-pink transition-colors cursor-pointer">
+                                    <i class="fa-solid fa-play text-sm ml-0.5" id="playIcon"></i>
+                                </button>
+                                <button onclick="toggleAudioInput()" class="text-xs px-4 py-2 rounded-full border border-chashni-rose/30 text-chashni-pink hover:bg-chashni-rose/10 transition-all font-tech cursor-pointer">
+                                    <i class="fa-solid fa-link mr-1"></i> Custom Song URL
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio URL Input Field -->
+                    <div id="audioInputDrawer" class="hidden mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="audioUrlInput" placeholder="Paste direct MP3 / audio link here..." class="flex-1 bg-slate-950/80 border border-chashni-rose/30 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-chashni-rose">
+                        <button onclick="loadCustomAudio()" class="px-5 py-2 bg-chashni-rose text-white text-xs font-tech rounded-xl hover:bg-chashni-pink transition-colors cursor-pointer">Load Track</button>
+                    </div>
+
+                    <audio id="audioElement" loop></audio>
+                </div>
+            </section>
+
+            <!-- 2. WAX-SEALED PERSONAL LETTER STUDIO & READER -->
+            <section class="w-full max-w-3xl">
+                <div class="text-center mb-8">
+                    <span class="text-xs uppercase font-tech tracking-widest text-chashni-lavender">Private Envelope</span>
+                    <h2 class="font-cinzel text-3xl sm:text-4xl text-white font-bold mt-1">The Handwritten Letter</h2>
+                </div>
+
+                <div class="glass-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-chashni-pink/20">
+                    
+                    <!-- Sealed Envelope State -->
+                    <div id="envelopeSealed" class="flex flex-col items-center text-center py-8">
+                        <div class="envelope-wrapper w-24 h-24 mb-6 rounded-full bg-gradient-to-tr from-chashni-rose to-chashni-lavender p-1 shadow-2xl flex items-center justify-center cursor-pointer transform hover:scale-110 transition-transform" onclick="openEnvelope()">
+                            <div class="w-full h-full rounded-full bg-chashni-card flex items-center justify-center border-2 border-chashni-rose/50">
+                                <i class="fa-solid fa-stamp text-3xl text-chashni-rose"></i>
+                            </div>
+                        </div>
+                        <p class="font-cinzel text-lg text-white font-medium mb-1">Wax Sealed for Chashni</p>
+                        <p class="text-xs text-slate-400 mb-6">Click the seal to break it open and read the note inside</p>
+                        <button onclick="openEnvelope()" class="px-6 py-2.5 rounded-full border border-chashni-rose/40 text-chashni-pink text-xs font-tech tracking-wider uppercase hover:bg-chashni-rose/10 transition-all cursor-pointer">Open Letter</button>
+                    </div>
+
+                    <!-- Opened Letter State -->
+                    <div id="envelopeOpened" class="hidden flex-col">
+                        <div class="flex items-center justify-between pb-6 mb-6 border-b border-chashni-rose/20">
+                            <span class="font-cinzel text-xs text-chashni-pink tracking-widest">Confidential • For Chashni Only</span>
+                            <button onclick="toggleLetterEdit()" class="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer font-tech">
+                                <i class="fa-solid fa-pen-to-square mr-1"></i> <span id="editLetterBtnText">Edit Letter</span>
+                            </button>
+                        </div>
+
+                        <!-- Read Mode -->
+                        <div id="letterView" class="font-alex text-3xl sm:text-4xl text-chashni-pink leading-relaxed space-y-6">
+                            <p>My Dearest Chashni,</p>
+                            <p>
+                                I built this entire space so you would always have a place to come back to whenever you want to feel just how deeply you are loved.
+                            </p>
+                            <p>
+                                Every quiet night, every silly joke, and every moment with you has given my days a warmth I can never replace. You are my sweet comfort, my favorite thought, and my home.
+                            </p>
+                            <p class="text-right text-chashni-lavender pt-4">Yours Always & Forever ❤️</p>
+                        </div>
+
+                        <!-- Edit Mode -->
+                        <div id="letterEditBox" class="hidden flex-col gap-4">
+                            <textarea id="letterTextArea" rows="6" class="w-full bg-slate-950/80 border border-chashni-rose/40 rounded-2xl p-4 font-alex text-3xl text-chashni-pink focus:outline-none focus:border-chashni-rose"></textarea>
+                            <div class="flex justify-end gap-3">
+                                <button onclick="saveLetter()" class="px-6 py-2 bg-chashni-rose text-white text-xs font-tech uppercase rounded-xl hover:bg-chashni-pink transition-colors cursor-pointer">Save Letter</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. MISCHIEVOUS & PLAYFUL MINI-GAMES -->
+            <section class="w-full">
+                <div class="text-center mb-12">
+                    <span class="text-xs uppercase font-tech tracking-widest text-chashni-lavender">Playful Corner</span>
+                    <h2 class="font-cinzel text-3xl sm:text-5xl text-white font-bold mt-1">Mischief & Games</h2>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-2">Three mini-experiences tailored just for Chashni</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <!-- GAME 1: THE CHASHNI STEAL (REFLEX CANVAS GAME) -->
+                    <div class="glass-panel glass-panel-glow rounded-3xl p-6 flex flex-col items-center">
+                        <div class="flex items-center gap-3 w-full border-b border-chashni-rose/20 pb-4 mb-4">
+                            <div class="w-8 h-8 rounded-full bg-chashni-rose/20 flex items-center justify-center text-chashni-rose">
+                                <i class="fa-solid fa-gamepad text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cinzel text-base text-white font-semibold">The Chashni Steal</h3>
+                                <p class="text-[10px] text-slate-400">Catch falling sweetness!</p>
+                            </div>
+                        </div>
+
+                        <!-- Arcade Container -->
+                        <div class="relative w-full h-56 bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center" id="arcadeBox">
+                            <canvas id="gameCanvas" class="w-full h-full block"></canvas>
+
+                            <!-- Overlay start screen -->
+                            <div id="gameStartOverlay" class="absolute inset-0 bg-slate-950/90 flex flex-col items-center justify-center p-4 text-center">
+                                <p class="text-xs text-slate-300 mb-4 font-light">Catch as many falling hearts as you can in 15 seconds!</p>
+                                <button onclick="startReflexGame()" class="px-5 py-2.5 bg-chashni-rose text-white text-xs font-tech uppercase rounded-full shadow-lg hover:bg-chashni-pink transition-all cursor-pointer">Start Catching</button>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between w-full mt-4 text-xs font-tech text-slate-300">
+                            <span>Score: <strong id="gameScore" class="text-chashni-pink">0</strong></span>
+                            <span>Time Left: <strong id="gameTimer" class="text-chashni-lavender">15s</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- GAME 2: TRUTH OR TEASE QUIZ -->
+                    <div class="glass-panel glass-panel-glow rounded-3xl p-6 flex flex-col items-center">
+                        <div class="flex items-center gap-3 w-full border-b border-chashni-rose/20 pb-4 mb-4">
+                            <div class="w-8 h-8 rounded-full bg-chashni-lavender/20 flex items-center justify-center text-chashni-lavender">
+                                <i class="fa-solid fa-comments text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cinzel text-base text-white font-semibold">Truth or Tease</h3>
+                                <p class="text-[10px] text-slate-400">Cheeky Q&A for Chashni</p>
+                            </div>
+                        </div>
+
+                        <div id="quizBox" class="w-full flex-1 flex flex-col justify-between">
+                            <div class="my-auto py-2">
+                                <span id="quizStep" class="text-[10px] font-tech text-chashni-pink uppercase tracking-widest">Question 1 of 3</span>
+                                <h4 id="quizQuestionText" class="font-cinzel text-sm text-white font-medium mt-1 mb-4">Who gets to throw the biggest tantrums?</h4>
+
+                                <div id="quizOptions" class="space-y-2">
+                                    <!-- Dynamic Options Loaded via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="quizFeedback" class="hidden w-full text-center p-3 rounded-xl bg-chashni-rose/10 border border-chashni-rose/30 mt-3 text-xs text-chashni-pink italic font-tech"></div>
+                    </div>
+
+                    <!-- GAME 3: REDEEMABLE MISCHIEF COUPONS -->
+                    <div class="glass-panel glass-panel-glow rounded-3xl p-6 flex flex-col items-center">
+                        <div class="flex items-center gap-3 w-full border-b border-chashni-rose/20 pb-4 mb-4">
+                            <div class="w-8 h-8 rounded-full bg-chashni-pink/20 flex items-center justify-center text-chashni-pink">
+                                <i class="fa-solid fa-ticket text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cinzel text-base text-white font-semibold">Love Coupons</h3>
+                                <p class="text-[10px] text-slate-400">Redeemable favor generator</p>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Flip / Scratch Card -->
+                        <div id="couponCard" class="w-full h-44 rounded-2xl bg-gradient-to-br from-chashni-card to-slate-950 border border-chashni-rose/30 p-4 flex flex-col items-center justify-center text-center relative overflow-hidden mb-4 shadow-inner">
+                            <i class="fa-solid fa-gift text-3xl text-chashni-rose mb-2"></i>
+                            <p id="couponTitle" class="font-cinzel text-sm text-white font-semibold">Your Custom Coupon</p>
+                            <p id="couponDesc" class="text-xs text-slate-400 mt-1">Press the draw button to reveal your perk!</p>
+                        </div>
+
+                        <button onclick="drawNewCoupon()" class="w-full py-3 bg-gradient-to-r from-chashni-rose to-chashni-lavender text-white font-tech text-xs uppercase tracking-wider rounded-xl shadow-lg hover:opacity-90 transition-all cursor-pointer">
+                            Draw Mischief Coupon ✨
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 4. STAGGERED MEMORY VAULT -->
+            <section class="w-full">
+                <div class="text-center mb-12">
+                    <span class="text-xs uppercase font-tech tracking-widest text-chashni-lavender">Time Capsule</span>
+                    <h2 class="font-cinzel text-3xl sm:text-5xl text-white font-bold mt-1">Our Memory Vault</h2>
+                </div>
+
+                <!-- Staggered Layout Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+                    <!-- Memory Item 1 -->
+                    <div class="md:col-span-7 glass-panel glass-panel-glow rounded-3xl p-5 overflow-hidden">
+                        <div class="h-64 sm:h-80 rounded-2xl overflow-hidden relative mb-4 bg-slate-950">
+                            <img src="https://placehold.co/800x500/130726/ff7597?text=Chapter+I:+The+First+Spark" 
+                                 alt="The First Spark" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                 onerror="this.src='https://placehold.co/800x500/130726/ff7597?text=The+First+Spark'" />
+                            <div class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-tech text-chashni-pink border border-chashni-rose/30">
+                                Chapter I
+                            </div>
+                        </div>
+                        <h3 class="font-cinzel text-lg text-white font-semibold">The First Spark</h3>
+                        <p class="text-xs text-slate-300 font-light mt-1">Where simple words turned into something that felt larger than life.</p>
+                    </div>
+
+                    <!-- Memory Item 2 -->
+                    <div class="md:col-span-5 glass-panel glass-panel-glow rounded-3xl p-5 overflow-hidden">
+                        <div class="h-64 sm:h-80 rounded-2xl overflow-hidden relative mb-4 bg-slate-950">
+                            <img src="https://placehold.co/600x500/130726/c084fc?text=Chapter+II:+Late+Night+Giggles" 
+                                 alt="Late Night Giggles" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                 onerror="this.src='https://placehold.co/600x500/130726/c084fc?text=Late+Night+Talks'" />
+                            <div class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-tech text-chashni-lavender border border-chashni-lavender/30">
+                                Chapter II
+                            </div>
+                        </div>
+                        <h3 class="font-cinzel text-lg text-white font-semibold">Endless Midnight Talk</h3>
+                        <p class="text-xs text-slate-300 font-light mt-1">Losing track of time, laughing until the sunrise.</p>
+                    </div>
+
+                    <!-- Memory Item 3 -->
+                    <div class="md:col-span-5 glass-panel glass-panel-glow rounded-3xl p-5 overflow-hidden">
+                        <div class="h-64 sm:h-80 rounded-2xl overflow-hidden relative mb-4 bg-slate-950">
+                            <img src="https://placehold.co/600x500/130726/ff2e63?text=Chapter+III:+Pure+Comfort" 
+                                 alt="Pure Comfort" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                 onerror="this.src='https://placehold.co/600x500/130726/ff2e63?text=Pure+Comfort'" />
+                            <div class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-tech text-chashni-rose border border-chashni-rose/30">
+                                Chapter III
+                            </div>
+                        </div>
+                        <h3 class="font-cinzel text-lg text-white font-semibold">Pure Safe Haven</h3>
+                        <p class="text-xs text-slate-300 font-light mt-1">Finding absolute calm inside your presence.</p>
+                    </div>
+
+                    <!-- Memory Item 4 -->
+                    <div class="md:col-span-7 glass-panel glass-panel-glow rounded-3xl p-5 overflow-hidden">
+                        <div class="h-64 sm:h-80 rounded-2xl overflow-hidden relative mb-4 bg-slate-950">
+                            <img src="https://placehold.co/800x500/130726/ff0055?text=Chapter+IV:+The+Sweetest+Chashni" 
+                                 alt="The Sweetest Chashni" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                 onerror="this.src='https://placehold.co/800x500/130726/ff0055?text=The+Sweetest+Chashni'" />
+                            <div class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-tech text-white border border-white/30">
+                                Forever & Always
+                            </div>
+                        </div>
+                        <h3 class="font-cinzel text-lg text-white font-semibold">My Chashni</h3>
+                        <p class="text-xs text-slate-300 font-light mt-1">The person who makes every ordinary day feel extraordinary.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 5. GRAND CONFESSION ENDING -->
+            <section class="w-full max-w-3xl pt-12">
+                <div class="glass-panel rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden border-2 border-chashni-rose/40 shadow-2xl">
+                    <div class="flex justify-end mb-2">
+                        <button onclick="toggleConfessionEdit()" class="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer font-tech">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i> <span id="editConfessionBtnText">Edit Question & Message</span>
+                        </button>
+                    </div>
+
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-chashni-rose/20 flex items-center justify-center border border-chashni-rose/40">
+                        <i class="fa-solid fa-heart text-3xl text-chashni-rose animate-pulse"></i>
+                    </div>
+
+                    <!-- View Mode for Confession -->
+                    <div id="confessionView">
+                        <h2 id="confessionHeadingText" class="font-cinzel text-4xl sm:text-6xl text-white font-bold mb-6">
+                            One Final Question
+                        </h2>
+
+                        <p id="confessionQuestionText" class="font-alex text-3xl sm:text-4xl text-chashni-pink mb-8">
+                            "Chashni, will you stay my favorite person forever?"
+                        </p>
+                    </div>
+
+                    <!-- Edit Mode for Confession -->
+                    <div id="confessionEditBox" class="hidden flex-col gap-4 mb-8 text-left">
+                        <div>
+                            <label class="text-xs font-tech text-chashni-lavender uppercase tracking-wider block mb-1">Section Title</label>
+                            <input type="text" id="editConfessionHeading" class="w-full bg-slate-950/80 border border-chashni-rose/40 rounded-xl p-3 font-cinzel text-lg text-white focus:outline-none focus:border-chashni-rose">
+                        </div>
+                        <div>
+                            <label class="text-xs font-tech text-chashni-lavender uppercase tracking-wider block mb-1">Confession Question</label>
+                            <textarea id="editConfessionQuestion" rows="2" class="w-full bg-slate-950/80 border border-chashni-rose/40 rounded-xl p-3 font-alex text-2xl text-chashni-pink focus:outline-none focus:border-chashni-rose"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-tech text-chashni-lavender uppercase tracking-wider block mb-1">Celebration Heading</label>
+                            <input type="text" id="editConfessionCelebHeading" class="w-full bg-slate-950/80 border border-chashni-rose/40 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-chashni-rose">
+                        </div>
+                        <div>
+                            <label class="text-xs font-tech text-chashni-lavender uppercase tracking-wider block mb-1">Celebration Subtext / Secret Note</label>
+                            <textarea id="editConfessionCelebSub" rows="2" class="w-full bg-slate-950/80 border border-chashni-rose/40 rounded-xl p-3 text-xs text-slate-300 focus:outline-none focus:border-chashni-rose"></textarea>
+                        </div>
+                        <div class="flex justify-end gap-3 pt-2">
+                            <button onclick="saveConfessionEdits()" class="px-6 py-2 bg-chashni-rose text-white text-xs font-tech uppercase rounded-xl hover:bg-chashni-pink transition-colors cursor-pointer">Save Changes</button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Response Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[70px]" id="confessionBtnArea">
+                        <button onclick="acceptLove()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-chashni-rose to-chashni-lavender text-white font-tech font-bold text-sm tracking-wider uppercase rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform cursor-pointer">
+                            Yes, Absolutely! 💖
+                        </button>
+                        <button id="runawayBtn" onmouseover="dodgeBtn(this)" onclick="dodgeBtn(this)" class="w-full sm:w-auto px-8 py-4 bg-slate-950/60 border border-slate-700 text-slate-400 font-tech text-xs tracking-wider uppercase rounded-full transition-all cursor-pointer">
+                            Let me think... 🙈
+                        </button>
+                    </div>
+
+                    <!-- Celebration Reveal Modal -->
+                    <div id="celebrationResult" class="hidden mt-8 p-6 rounded-2xl bg-chashni-card border border-chashni-rose/50">
+                        <i class="fa-solid fa-crown text-4xl text-amber-300 mb-3 animate-bounce"></i>
+                        <h3 id="celebHeadingText" class="font-cinzel text-2xl text-white font-bold mb-2">You Made My Universe Whole!</h3>
+                        <p id="celebSubText" class="text-xs text-slate-300 max-w-md mx-auto">
+                            Thank you for being my sweetest blessing, Chashni. I promise to protect your smile every single day. ✨
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Minimal Luxury Footer -->
+        <footer class="mt-auto py-8 text-center text-xs font-tech text-slate-500 border-t border-slate-900">
+            <p>DESIGNED FOR CHASHNI • ALL RIGHTS RESERVED TO MY HEART</p>
+        </footer>
+
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        /* --------------------------------------------------
+         * 1. CURSOR SPARKLE TRAIL CANVAS ENGINE
+         * -------------------------------------------------- */
+        const trailCanvas = document.getElementById('trailCanvas');
+        const trailCtx = trailCanvas.getContext('2d');
+        let sparkles = [];
+
+        function resizeTrailCanvas() {
+            trailCanvas.width = window.innerWidth;
+            trailCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeTrailCanvas);
+        resizeTrailCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 2; i++) {
+                sparkles.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    size: Math.random() * 4 + 2,
+                    color: ['#ff2e63', '#ff7597', '#c084fc', '#ffffff'][Math.floor(Math.random() * 4)],
+                    alpha: 1,
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: (Math.random() - 0.5) * 1.5 - 1
+                });
+            }
+        });
+
+        function renderSparkles() {
+            trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+            for (let i = 0; i < sparkles.length; i++) {
+                let s = sparkles[i];
+                s.x += s.vx;
+                s.y += s.vy;
+                s.alpha -= 0.02;
+
+                if (s.alpha <= 0) {
+                    sparkles.splice(i, 1);
+                    i--;
+                    continue;
+                }
+
+                trailCtx.save();
+                trailCtx.globalAlpha = s.alpha;
+                trailCtx.fillStyle = s.color;
+                trailCtx.beginPath();
+                trailCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                trailCtx.fill();
+                trailCtx.restore();
+            }
+            requestAnimationFrame(renderSparkles);
+        }
+        renderSparkles();
+
+        /* --------------------------------------------------
+         * 2. UNIVERSE ENTRY & NAVIGATION
+         * -------------------------------------------------- */
+        function enterUniverse() {
+            confetti({
+                particleCount: 70,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ff2e63', '#c084fc', '#ffffff']
+            });
+
+            document.getElementById('mainApp').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('flex');
+            document.getElementById('scrollPrompt').classList.remove('hidden');
+            document.getElementById('scrollPrompt').classList.add('flex');
+
+            setTimeout(() => {
+                document.getElementById('mainApp').scrollIntoView({ behavior: 'smooth' });
+            }, 200);
+        }
+
+        /* --------------------------------------------------
+         * 3. DYNAMIC AUDIO PLAYER
+         * -------------------------------------------------- */
+        let isAudioPlaying = false;
+        const audio = document.getElementById('audioElement');
+        const vinyl = document.getElementById('vinylDisk');
+
+        function toggleAudio() {
+            const playIcon = document.getElementById('playIcon');
+            if (isAudioPlaying) {
+                audio.pause();
+                playIcon.className = "fa-solid fa-play text-sm ml-0.5";
+                vinyl.classList.remove('animate-spin');
+                isAudioPlaying = false;
+            } else {
+                if (audio.src) {
+                    audio.play();
+                }
+                playIcon.className = "fa-solid fa-pause text-sm";
+                vinyl.classList.add('animate-spin');
+                isAudioPlaying = true;
+            }
+        }
+
+        function toggleAudioInput() {
+            const drawer = document.getElementById('audioInputDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function loadCustomAudio() {
+            const url = document.getElementById('audioUrlInput').value.trim();
+            if (url) {
+                audio.src = url;
+                audio.play().then(() => {
+                    isAudioPlaying = true;
+                    document.getElementById('playIcon').className = "fa-solid fa-pause text-sm";
+                    vinyl.classList.add('animate-spin');
+                    document.getElementById('currentSongTitle').textContent = "Custom Romantic Track";
+                    document.getElementById('currentSongSub').textContent = "Loaded via custom URL";
+                }).catch(e => {
+                    alert("Unable to play custom link directly. Ensure it's a valid audio URL!");
+                });
+            }
+        }
+
+        /* --------------------------------------------------
+         * 4. WAX SEALED LETTER
+         * -------------------------------------------------- */
+        function openEnvelope() {
+            document.getElementById('envelopeSealed').classList.add('hidden');
+            const opened = document.getElementById('envelopeOpened');
+            opened.classList.remove('hidden');
+            opened.classList.add('flex');
+            confetti({ particleCount: 30, spread: 50, origin: { y: 0.5 } });
+        }
+
+        function toggleLetterEdit() {
+            const view = document.getElementById('letterView');
+            const editBox = document.getElementById('letterEditBox');
+            const textArea = document.getElementById('letterTextArea');
+            const btnText = document.getElementById('editLetterBtnText');
+
+            if (editBox.classList.contains('hidden')) {
+                textArea.value = view.innerText;
+                view.classList.add('hidden');
+                editBox.classList.remove('hidden');
+                editBox.classList.add('flex');
+                btnText.textContent = "Cancel";
+            } else {
+                view.classList.remove('hidden');
+                editBox.classList.add('hidden');
+                editBox.classList.remove('flex');
+                btnText.textContent = "Edit Letter";
+            }
+        }
+
+        function saveLetter() {
+            const view = document.getElementById('letterView');
+            const textArea = document.getElementById('letterTextArea');
+            const paragraphs = textArea.value.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
+            view.innerHTML = paragraphs || "<p>My Dearest Chashni,</p><p>You mean everything to me.</p>";
+            toggleLetterEdit();
+        }
+
+        /* --------------------------------------------------
+         * 5. MINI GAME 1: THE CHASHNI STEAL (CANVAS GAME)
+         * -------------------------------------------------- */
+        const gCanvas = document.getElementById('gameCanvas');
+        const gCtx = gCanvas.getContext('2d');
+        let gameScore = 0;
+        let gameTime = 15;
+        let gameInterval, spawnInterval;
+        let fallingItems = [];
+
+        function startReflexGame() {
+            document.getElementById('gameStartOverlay').classList.add('hidden');
+            gCanvas.width = gCanvas.parentElement.clientWidth;
+            gCanvas.height = gCanvas.parentElement.clientHeight;
+            
+            gameScore = 0;
+            gameTime = 15;
+            fallingItems = [];
+            document.getElementById('gameScore').textContent = gameScore;
+            document.getElementById('gameTimer').textContent = gameTime + 's';
+
+            clearInterval(gameInterval);
+            clearInterval(spawnInterval);
+
+            // Spawn items
+            spawnInterval = setInterval(() => {
+                fallingItems.push({
+                    x: Math.random() * (gCanvas.width - 30) + 15,
+                    y: -20,
+                    speed: Math.random() * 2 + 1.5,
+                    size: 20
+                });
+            }, 600);
+
+            // Timer loop
+            gameInterval = setInterval(() => {
+                gameTime--;
+                document.getElementById('gameTimer').textContent = gameTime + 's';
+                if (gameTime <= 0) {
+                    endReflexGame();
+                }
+            }, 1000);
+
+            requestAnimationFrame(updateReflexGame);
+        }
+
+        function updateReflexGame() {
+            if (gameTime <= 0) return;
+
+            gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+
+            for (let i = 0; i < fallingItems.length; i++) {
+                let item = fallingItems[i];
+                item.y += item.speed;
+
+                // Draw Heart
+                gCtx.fillStyle = '#ff2e63';
+                gCtx.font = '16px serif';
+                gCtx.fillText('💖', item.x, item.y);
+
+                if (item.y > gCanvas.height + 20) {
+                    fallingItems.splice(i, 1);
+                    i--;
+                }
+            }
+
+            requestAnimationFrame(updateReflexGame);
+        }
+
+        // Tap/Click to catch
+        gCanvas.addEventListener('pointerdown', (e) => {
+            const rect = gCanvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            for (let i = 0; i < fallingItems.length; i++) {
+                let item = fallingItems[i];
+                let dist = Math.hypot(item.x - clickX, item.y - clickY);
+                if (dist < 30) {
+                    gameScore += 10;
+                    document.getElementById('gameScore').textContent = gameScore;
+                    fallingItems.splice(i, 1);
+                    break;
+                }
+            }
+        });
+
+        function endReflexGame() {
+            clearInterval(gameInterval);
+            clearInterval(spawnInterval);
+            const overlay = document.getElementById('gameStartOverlay');
+            overlay.classList.remove('hidden');
+            overlay.querySelector('p').textContent = `Game Over! You caught ${gameScore / 10} hearts for a total score of ${gameScore}! 🎉`;
+            confetti({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
+        }
+
+        /* --------------------------------------------------
+         * 6. MINI GAME 2: TRUTH OR TEASE QUIZ
+         * -------------------------------------------------- */
+        const quizData = [
+            {
+                q: "Who gets to throw the sweetest tantrums?",
+                options: ["Chashni (100%)", "Also Chashni"],
+                feedback: "Correct! And you look adorable doing it every single time! 💖"
+            },
+            {
+                q: "What is the absolute sweetest substance on earth?",
+                options: ["Honey", "Chashni's Smile"],
+                feedback: "Spot on! Sugar has got nothing on your smile! ✨"
+            },
+            {
+                q: "Who loves who more?",
+                options: ["I love Chashni more!", "Chashni loves me more!"],
+                feedback: "It's a tie, but I will forever claim I love you more! 🤫"
+            }
+        ];
+        let currentQuizIndex = 0;
+
+        function loadQuizStep() {
+            const step = quizData[currentQuizIndex];
+            document.getElementById('quizStep').textContent = `Question ${currentQuizIndex + 1} of ${quizData.length}`;
+            document.getElementById('quizQuestionText').textContent = step.q;
+            
+            const optionsBox = document.getElementById('quizOptions');
+            optionsBox.innerHTML = '';
+
+            step.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full py-2 px-3 rounded-xl bg-slate-950/60 border border-chashni-rose/20 text-xs text-slate-200 hover:bg-chashni-rose/20 hover:border-chashni-rose/50 transition-all text-left font-tech cursor-pointer";
+                btn.textContent = opt;
+                btn.onclick = () => selectQuizAnswer(step.feedback);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function selectQuizAnswer(fb) {
+            const feedbackBox = document.getElementById('quizFeedback');
+            feedbackBox.textContent = fb;
+            feedbackBox.classList.remove('hidden');
+
+            confetti({ particleCount: 20, spread: 40, origin: { y: 0.7 } });
+
+            setTimeout(() => {
+                currentQuizIndex = (currentQuizIndex + 1) % quizData.length;
+                feedbackBox.classList.add('hidden');
+                loadQuizStep();
+            }, 2500);
+        }
+        loadQuizStep();
+
+        /* --------------------------------------------------
+         * 7. MINI GAME 3: REDEEMABLE MISCHIEF COUPONS
+         * -------------------------------------------------- */
+        const couponList = [
+            { title: "Midnight Dessert Run", desc: "Redeemable anytime for your favorite sweet treat on me!" },
+            { title: "Argument Victory Pass", desc: "Instantly win any disagreement without explanation." },
+            { title: "Unlimited Warm Cuddles", desc: "Entitles you to non-stop hugs whenever requested." },
+            { title: "10-Min Shoulder Massage", desc: "Relaxation guarantee provided right on the spot." },
+            { title: "Movie Choice Royalty", desc: "You pick whatever movie or show we watch next!" }
+        ];
+
+        function drawNewCoupon() {
+            const card = document.getElementById('couponCard');
+            const random = couponList[Math.floor(Math.random() * couponList.length)];
+            
+            card.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                document.getElementById('couponTitle').textContent = random.title;
+                document.getElementById('couponDesc').textContent = random.desc;
+                card.classList.remove('scale-95', 'opacity-0');
+                confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
+            }, 200);
+        }
+
+        /* --------------------------------------------------
+         * 8. GRAND CONFESSION DODGER & CELEBRATION
+         * -------------------------------------------------- */
+        // Load saved confession content if present in localStorage
+        function loadSavedConfession() {
+            const savedHeading = localStorage.getItem('chashni_confession_heading');
+            const savedQuestion = localStorage.getItem('chashni_confession_question');
+            const savedCelebHeading = localStorage.getItem('chashni_celeb_heading');
+            const savedCelebSub = localStorage.getItem('chashni_celeb_sub');
+
+            if (savedHeading) document.getElementById('confessionHeadingText').textContent = savedHeading;
+            if (savedQuestion) document.getElementById('confessionQuestionText').textContent = `"${savedQuestion}"`;
+            if (savedCelebHeading) document.getElementById('celebHeadingText').textContent = savedCelebHeading;
+            if (savedCelebSub) document.getElementById('celebSubText').textContent = savedCelebSub;
+        }
+
+        function toggleConfessionEdit() {
+            const view = document.getElementById('confessionView');
+            const editBox = document.getElementById('confessionEditBox');
+            const btnText = document.getElementById('editConfessionBtnText');
+
+            if (editBox.classList.contains('hidden')) {
+                document.getElementById('editConfessionHeading').value = document.getElementById('confessionHeadingText').textContent.trim();
+                document.getElementById('editConfessionQuestion').value = document.getElementById('confessionQuestionText').textContent.replace(/^"|"$/g, '').trim();
+                document.getElementById('editConfessionCelebHeading').value = document.getElementById('celebHeadingText').textContent.trim();
+                document.getElementById('editConfessionCelebSub').value = document.getElementById('celebSubText').textContent.trim();
+
+                view.classList.add('hidden');
+                editBox.classList.remove('hidden');
+                editBox.classList.add('flex');
+                btnText.textContent = "Cancel";
+            } else {
+                view.classList.remove('hidden');
+                editBox.classList.add('hidden');
+                editBox.classList.remove('flex');
+                btnText.textContent = "Edit Question & Message";
+            }
+        }
+
+        function saveConfessionEdits() {
+            const heading = document.getElementById('editConfessionHeading').value.trim() || "One Final Question";
+            const question = document.getElementById('editConfessionQuestion').value.trim() || "Chashni, will you stay my favorite person forever?";
+            const celebHeading = document.getElementById('editConfessionCelebHeading').value.trim() || "You Made My Universe Whole!";
+            const celebSub = document.getElementById('editConfessionCelebSub').value.trim() || "Thank you for being my sweetest blessing, Chashni.";
+
+            document.getElementById('confessionHeadingText').textContent = heading;
+            document.getElementById('confessionQuestionText').textContent = `"${question}"`;
+            document.getElementById('celebHeadingText').textContent = celebHeading;
+            document.getElementById('celebSubText').textContent = celebSub;
+
+            localStorage.setItem('chashni_confession_heading', heading);
+            localStorage.setItem('chashni_confession_question', question);
+            localStorage.setItem('chashni_celeb_heading', celebHeading);
+            localStorage.setItem('chashni_celeb_sub', celebSub);
+
+            toggleConfessionEdit();
+        }
+
+        // Initialize saved state on window load
+        window.addEventListener('DOMContentLoaded', loadSavedConfession);
+
+        let dodgeCount = 0;
+        function dodgeBtn(btn) {
+            dodgeCount++;
+            const x = (Math.random() - 0.5) * 180;
+            const y = (Math.random() - 0.5) * 120;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+
+            const hints = [
+                "Are you sure? 🥺",
+                "Wrong choice, Chashni! 😜",
+                "Try clicking Yes! 💖",
+                "Nice try dodging! ✨"
+            ];
+            btn.textContent = hints[dodgeCount % hints.length];
+        }
+
+        function acceptLove() {
+            const result = document.getElementById('celebrationResult');
+            result.classList.remove('hidden');
+
+            const end = Date.now() + 3000;
+            (function frame() {
+                confetti({
+                    particleCount: 7,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff2e63', '#ff7597', '#c084fc']
+                });
+                confetti({
+                    particleCount: 7,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff2e63', '#ff7597', '#c084fc']
+                });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            })();
+
+            result.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
